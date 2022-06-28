@@ -1,16 +1,19 @@
 
 z = function(x) {
 
-    if (x < 2){
-        return x;
+    fetch(x)
+        .then(function(response) {
+        return response.json();
+        })
+        .then(function (data) {
+            document.getElementById("y").textContent = data["result"];
 
-    }else{
-            return (z(x-1) + z(x-2));
-    }
+        });
 
 
 }
 update = function(){
+    z("http://localhost:5050/fibonacci/"+document.getElementById("x").value.toString());
 
-    document.getElementById("y").textContent = z(document.getElementById("x").value);
 }
+
