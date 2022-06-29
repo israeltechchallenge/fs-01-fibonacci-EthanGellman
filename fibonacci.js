@@ -19,7 +19,7 @@ get_prev = function(){
     });
 
 }
-z = function(x) {
+z1 = function(x) {
     document.getElementById("y").textContent = "";
     document.getElementById("y").style.color = "black";
     document.getElementById("spinner").classList.remove('opacity-0');
@@ -40,17 +40,33 @@ z = function(x) {
 
 
 }
+z2 = function(x) {
+
+    if (x < 2){
+        return x;
+
+    }else{
+            return (z2(x-1) + z2(x-2));
+    }
+
+
+}
 update = function(){
+    var checkBox = document.getElementById("myCheck");
     document.getElementById("error_line").textContent = "";
     document.getElementById("error_line").classList.add('opacity-0');
     document.getElementById("x").style.color = "black";
 
-    if (document.getElementById("x").value <= 50){
-            z("http://localhost:5050/fibonacci/"+document.getElementById("x").value.toString());
+    if (document.getElementById("x").value <= 50 && document.getElementById("x").value >= 0){
+        if (checkBox.checked == true){
+            z1("http://localhost:5050/fibonacci/"+document.getElementById("x").value.toString());
+          } else {
+            document.getElementById("y").textContent = z2(document.getElementById("x").value);
+          }
     }else{
         document.getElementById("error_line").classList.remove('opacity-0');
         document.getElementById("x").style.color = "#D9534F";
-        document.getElementById("error_line").textContent = "Can’t be larger than 50";
+        document.getElementById("error_line").textContent = "Can’t be larger than 50 or less than 0";
 
     }
     get_prev();
